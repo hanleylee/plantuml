@@ -1,0 +1,20 @@
+@startmindmap
+*[#Orange] root node
+**[#lightgreen] first level node 1
+***[#FFBBCC] second level node 1
+*** second level node 2
+***_ second level node 3
+**[#lightblue] first level node 2
+
+left side
+
+** left size node 1
+** <&flag> left size node 2
+** <&globe> left size node 3
+** <&graph> left size node 4
+** <&pulse> left size node 5
+** <&people> left size node 6
+** <&star> left size node 7
+** <s> left size node </s> => hello
+
+@endmindmap

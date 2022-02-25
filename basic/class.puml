@@ -1,20 +1,376 @@
 @startuml
 
-/' abstract        抽象 '/
 abstract class  抽象(等同abstract)
 annotation      注解
 circle          圆
 ()              圆缩写形式
-class           类
 diamond         菱形
+class           类
 <>              菱形写形式
 entity          实例
 enum            枚举
 interface       接口
 
-/' relationship '/
+/' MARK: relationship '/
+
+/' 单个为横向, 双个为竖向 '/
 class01 <|.. class02
-class03 *-- class04
+class03 *-- class04 : contain
+class05 o-- class06 : aggregation
+class07 .. class08
+class09 -- class10
+
+class11 <|.. class12
+class13 --> class14
+class15 ..> "1" class16
+class17 ..|> class18
+class19 <--* class20
+
+class21 #-- class22
+class23 x-- class24
+class }-- class26
+class27 +-- class28
+class29 ^-- class30
+
+Driver - Car : drivers >
+Car *- Wheel : have 4 >
+Car -- Person : < own
+
+/' Adding methods '/
+Object1 <|-- ArrayList
+
+Object1 : equals()
+ArrayList : Object[] elementData
+ArrayList : size()
+
+class Dummy1 {
+    String data
+    void methods()
+}
+
+/' the order of type & name is arbitrary '/
+class Flight1 {
+    departureTime: Date
+    methods() -> void
+    flightNumber : Inter
+}
+
+class Dummy2 {
+    {field} A field (despite parentheses)
+    {method} Some method
+}
+
+/' MARK: Advanced class body '/
+
+class Foo1 {
+    You can use
+    several lines
+    ..
+    as you want
+    and group
+    ==
+    things together.
+    __
+    You can have as many groups
+    as you want
+    --
+End of class
+}
+
+class User1 {
+    .. Simple Getter ..
+    + getName()
+    + getAddress()
+    .. Some setter ..
+    + setName()
+    __ private data __
+    int age
+    -- encrypted --
+    String password
+}
+
+
+/' MARK: Notes & Steretypes '/
+class Object2 << general >>
+Object <|--- ArrayList2
+
+note top of Object2 : In java, every class\nextends this one.
+note left of Object2
+    In java, <size:18>every</size> <u>clas</u>
+    <b>extend</b>
+    <i>this</i> one.
+end note
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object2 .. N2
+N2 .. ArrayList2
+
+note as N3
+    This note is <u>also</u>
+    <b><color:royalBlue>on serveal</color>
+    <s>words</s>lines
+    And this is hosted by <img:sourceforge.jpg>
+end note
+
+class Foo2
+note left: On last defined class
+
+/' Note on field or method '/
+class A1 {
+    {static} int counter
+    +void {abstract} start(int timeout)
+}
+note right of A1::counter
+This member is annotated
+end note
+note right of A1::start
+This method is now explained in a UML note
+end note
+
+/' Note on method with the same name '/
+class A2 {
+    {static} int counter
+    +void {abstract} start(int timeoutms)
+    +void {abstract} start(Duration timeout)
+}
+
+note left of A2::counter
+This member is annotated
+end note
+
+note right of A2::"start(int timeoutms)"
+This method with int
+end note
+
+note right of A2::"start(Duration timeout)"
+This method with Duration
+end note
+
+
+/' Note on links '/
+
+class Dummy
+Dummy --> Foo : A link
+note on link #red: note that is red
+
+Dummy --> Foo2 : Another link
+note right on link #blue
+    this is my note on right link
+    and in blue
+end note
+
+
+/' MARK: Abstract & Class & Interface & Enum & Annotation '/
+
+abstract class AbstractList3
+abstract AbstractCollection3
+interface List3
+interface Collection3
+
+List3 <|-- AbstractList3
+Collection3 <|-- AbstractCollection3
+
+Collection3 <|- List3
+AbstractCollection3 <|- AbstractList3
+AbstractList3 <|-- ArrayList3
+
+class ArrayList3 {
+    Object[] elementData
+    size()
+}
+
+enum TimeUnit3 {
+    DAYS
+    HOURS
+    MINUTES
+}
+
+annotation SuppressWarnings3
+
+annotation Annotation3 {
+annotation with members
+String foo()
+String bar()
+}
+
+/' Using non-letters '/
+class "This is my class" as class4
+class class5 as "It works this way too"
+class5 *-- "foo/dummy" : use
+
+/' Hide / Remove classes '/
+
+class Foo6
+class Foo7
+
+Foo7 *-- Foo6
+
+hide Foo7
+/' remove Foo7 '/
+/' hide @unlinked '/
+/' remove @unlinked '/
+
+
+/' Use generics '/
+class Foo8<? extends Element> {
+    int size()
+}
+Foo8 *- Element
+
+/' MARK: Package '/
+scale 750 width
+package package1 <<Node>> {
+    class Class1
+}
+
+package package2 <<Rectangle>> {
+    class Class2
+}
+
+package package3 <<Folder>> {
+    class Class3
+}
+
+package package4 <<Frame>> {
+    class Class4
+}
+
+package package5 <<Cloud>> {
+    class Class5
+}
+
+package package6 <<Database>> {
+    class Class6
+}
+
+/' MARK: - NameSpace '/
+
+class BaseClass
+
+namespace net.dummy #DDDDDD {
+    .BaseClass <|-- Person
+    Meeting o-- Person
+
+    .BaseClass <|- Meeting
+}
+
+namespace net.foo {
+    net.dummy.Person  <|- Person
+    .BaseClass <|-- Person
+
+    net.dummy.Meeting o-- Person
+}
+
+BaseClass <|-- net.unused.Person
+
+/' MARK: Change direction '/
+foo9 -left-> dummyLeft
+foo9 -right-> dummyRight
+foo9 -up-> dummyUp
+foo9 -down-> dummyDown
+
+/' MARK: Skinned Stereotypes '/
+skinparam class {
+    /' BackgroundColor PaleGreen '/
+    /' ArrowColor SeaGreen '/
+    /' BorderColor SpringGreen '/
+    BackgroundColor<<Foo>> Wheat
+    BorderColor<<Foo>> Tomato
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+skinparam stereotypeCBackgroundColor<< Foo >> DimGray
+
+Class01 <<Foo>>
+Class03 <<Foo>>
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+
+
+/' MARK: line appearance '/
+/' line style '/
+title Bracketed line style without label
+class foo10
+class bar10
+bar11 : [bold]  
+bar12 : [dashed]
+bar13 : [dotted]
+bar14 : [hidden]
+bar15 : [plain] 
+
+foo10 --> bar10
+foo10 -[bold]-> bar11
+foo10 -[dashed]-> bar12
+foo10 -[dotted]-> bar13
+foo10 -[hidden]-> bar14
+foo10 -[plain]-> bar15
+
+
+/' line color '/
+title Bracketed line color
+class foo20
+class bar20
+bar21 : [#red]
+bar22 : [#green]
+bar23 : [#blue]
+
+foo20 --> bar20
+foo20 -[#red]-> bar21     : [#red]
+foo20 -[#green]-> bar22   : [#green]
+foo20 -[#blue]-> bar23    : [#blue]
+'foo -[#blue;#yellow;#green]-> bar4
+
+
+/' line thickness '/
+title Bracketed line thickness
+class foo30
+class bar30
+bar31 : [thickness=1]
+bar32 : [thickness=2]
+bar33 : [thickness=4]
+bar34 : [thickness=8]
+bar35 : [thickness=16]
+
+foo30 --> bar30                 : ∅
+foo30 -[thickness=1]-> bar31   : [1]
+foo30 -[thickness=2]-> bar32   : [2]
+foo30 -[thickness=4]-> bar33   : [4]
+foo30 -[thickness=8]-> bar34   : [8]
+foo30 -[thickness=16]-> bar35  : [16]
+
+/' line ...(mixed) '/
+title Bracketed line style mix
+class foo40
+class bar40
+bar41 : [#red,thickness=1]
+bar42 : [#red,dashed,thickness=2]
+bar43 : [#green,dashed,thickness=4]
+bar44 : [#blue,dotted,thickness=8]
+bar45 : [#blue,plain,thickness=16]
+
+foo40 --> bar40                             : ∅
+foo40 -[#red,thickness=1]-> bar41          : [#red,1]
+foo40 -[#red,dashed,thickness=2]-> bar42   : [#red,dashed,2]
+foo40 -[#green,dashed,thickness=4]-> bar43 : [#green,dashed,4]
+foo40 -[#blue,dotted,thickness=8]-> bar44  : [blue,dotted,8]
+foo40 -[#blue,plain,thickness=16]-> bar45  : [blue,plain,16]
+
+
+/' MARK: Arrow from/to class members '/
+class Foo9 {
+    + field1
+    + field2
+}
+
+class Bar9 {
+    + field3
+    + field4
+}
+
+Foo9::field1 --> Bar9::field3 : foo
+Foo9::field2 --> Bar9::field4 : bar
+
 
 @enduml
 
