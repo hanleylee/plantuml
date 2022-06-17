@@ -1,0 +1,19 @@
+@startuml
+!theme sandstone
+start
+if ("你想练葵花宝典") then (yes)
+    floating note right:修炼葵花宝典注意事项
+    if ("你能接受自宫吗") then (no)
+        :"很遗憾，你无法修炼";
+    else (yes)
+        if ("你有葵花宝典秘籍吗") then (yes)
+            :"恭喜你，可以修炼";
+        else (no)
+            :"很遗憾，你无法修炼";
+        endif
+    endif
+else (no)
+    :"不修炼";
+endif
+stop
+@enduml
